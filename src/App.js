@@ -1,16 +1,30 @@
 import './App.css';
 import Signup from './Pages/Signup';
 import Signin from './Pages/Signin';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+
+  Route,
+  RouterProvider,
+} from "react-router-dom";
+import Layout from './Layout';
+
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path='/' element={<Layout />}>
+      <Route index element={<Signin />} />
+      <Route path="/Signup" element={<Signup />} />
+    </Route>
+  )
+);
+
+
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route exact path="/Signin" element={<Signin />} />
-        <Route path="/Signup" element={<Signup />} />
-      </Routes>
-    </Router>
+    <RouterProvider router={router} />
   );
 }
 

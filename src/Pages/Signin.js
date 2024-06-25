@@ -20,6 +20,7 @@ function SignIn() {
         <div className="col-md-4">
           <img className="img"
             src="https://res.cloudinary.com/dsoqjlpxd/image/upload/v1712764240/Saly-1_xyu5bh.png"
+            alt=""
           />
         </div>
         <div className="col-md-5 cont"
