@@ -18,14 +18,18 @@ function SignIn() {
           Sign in now and let's work together to maintain the integrity of academic research!
           </p>
         </div>
-        <div className="">
+
+        {/* backgroud image */}
+        <div className="w-[385px] h-[385px]">
           <img
-            className="img"
-            src="https://res.cloudinary.com/dsoqjlpxd/image/upload/v1712764240/Saly-1_xyu5bh.png"
+            className="w-full h-auto object-cover"
+            src="/phone-bg.png"
             alt=""
           />
         </div>
-        <div className="rounded-[40px] bg-white p-10 text-black shadow-xl ml-8">
+
+        {/* signin card */}
+        <div className="rounded-[40px] max-w-[430px] bg-white p-10 text-black shadow-xl ml-8">
           <div className="row">
             <div className="col-md-10">
               <div className="flex justify-between">
