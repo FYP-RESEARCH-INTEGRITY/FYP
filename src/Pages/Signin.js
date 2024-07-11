@@ -1,56 +1,64 @@
+import { GoogleLogin } from "@react-oauth/google";
 import React from "react";
-
 
 function SignIn() {
   return (
-    <div className="max-h-[350px] bg-[#32324D] px-8 py-12 text-white">
-      <div className="logo">CITESCOUT</div>
-      <div className="flex">
-        <div className="mt-8">
+    <div style={{backgroundImage: "url('/phone-bg.png')", backgroundSize: ""}} className="h-fit max-h-[300px] bg-[#32324D] bg-no-repeat bg-center text-white">
+      <div className="logo px-8 pt-8">CITESCOUT</div>
+      <div className="flex flex-col justify-center md:flex-row md:justify-between">
+        <div className="px-8 pb-12 pt-2">
           <h1 className="text-[32px] font-semibold"> Welcome back</h1>
-          <h5 className="text-2xl">To CiteScout</h5>
+          {/* <h5 className="text-2xl">To CiteScout</h5> */}
           <br />
-          <p className="max-w-[45ch]">
-          Sign in to access your account and continue upholding the highest standards of academic integrity. 
-          Our citation verification, plagiarism detection, and collaboration 
-          tools are always free and at your fingertips. No subscription fees or 
-          hidden costs - just reliable support for your research projects. 
-          Sign in now and let's work together to maintain the integrity of academic research!
+          <p className="hidden md:block max-w-[45ch]">
+          Sign in to maintain academic integrity with free citation 
+          verification, plagiarism detection, and collaboration tools.
+          No subscription fees or hidden costs.
           </p>
         </div>
 
         {/* backgroud image */}
-        <div className="w-[385px] h-[385px]">
+        {/* <div className="hidden h-auto w-[385px] md:block">
           <img
-            className="w-full h-auto object-cover"
+            className="h-auto w-full object-cover"
             src="/phone-bg.png"
             alt=""
           />
-        </div>
+        </div> */}
 
         {/* signin card */}
-        <div className="rounded-[40px] max-w-[430px] bg-white p-10 text-black shadow-xl ml-8">
+        <div className="mx-auto absolute inset-[30%_0_10%_0] lg:inset-[10%_0_0%_0] h-fit w-full rounded-[40px] bg-white px-6 py-8 text-black shadow-xl sm:max-w-[430px] md:mr-8 md:px-8 md:py-10">
           <div className="row">
             <div className="col-md-10">
               <div className="flex justify-between">
-                <h6>
+                {/* <h6>
                   Welcome to <span className="font-bold">CITESCOUT</span>
-                </h6>{" "}
-                <span className="max-w-[40ch] text-[13px] text-[#32324D]">
-                  {" "}
-                  Don't have an account? <br />
-                  Sign Up
+                </h6>{" "} */}
+                <span className="max-w-[40ch] text-xs text-[#32324D]">
+                  Don't have an account?{" "}
+                  <a className="underline" href="/">
+                    Sign Up
+                  </a>
                 </span>
               </div>
             </div>
           </div>
-          <h2 className="text-[40px] font-semibold " >Sign In</h2>
+          <h2 className="text-[40px] font-semibold">Sign In</h2>
           <form>
+            <GoogleLogin
+              style={{ width: "100%" }}
+              onSuccess={(credentialResponse) => {
+                console.log(credentialResponse);
+              }}
+              onError={() => {
+                console.log("Login Failed");
+              }}
+            />
             <div className="mt-5">
               <label>Enter your username or email address</label>
               <input
                 type="text"
-                className="border border-gray-300 px-4 py-3 rounded-xl w-full focus:ring-blue-400  focus-within:ring-blue-400 focus-within:outline-blue-400"
+                className="w-full rounded-xl border border-gray-300 px-4 py-3 focus-within:outline-blue-400 focus-within:ring-blue-400 focus:ring-blue-400"
                 placeholder="Username or email address"
               />
             </div>
@@ -58,12 +66,16 @@ function SignIn() {
               <label>Enter your Password</label>
               <input
                 type="password"
-                className="border border-gray-300 px-4 py-3 rounded-xl w-full focus:ring-blue-400  focus-within:ring-blue-400 focus-within:outline-blue-400"
+                className="w-full rounded-xl border border-gray-300 px-4 py-3 focus-within:outline-blue-400 focus-within:ring-blue-400 focus:ring-blue-400"
                 placeholder="Password"
               />
             </div>
-            <p className="forgot text-blue-500 hover:text-blue-700 text-right">Forgot Password</p>
-            <button class="bg-[#615793] hover:bg-[#32324D] text-white font-bold py-4 px-3 rounded-xl w-full mt-8">Sign In</button>
+            <p className="forgot text-right text-blue-500 hover:text-blue-700">
+              Forgot Password
+            </p>
+            <button class="mt-8 w-full rounded-xl bg-[#615793] px-3 py-4 font-bold text-white hover:bg-[#32324D]">
+              Sign In
+            </button>
           </form>
         </div>
       </div>

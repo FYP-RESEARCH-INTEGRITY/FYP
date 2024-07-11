@@ -1,4 +1,5 @@
 import React from "react";
+import { GoogleLogin } from "@react-oauth/google";
 
 function SignUp() {
   return (
@@ -7,14 +8,13 @@ function SignUp() {
       <div className="flex">
         <div className="mt-8">
           <h1 className="text-[32px] font-semibold">Sign Up</h1>
-          <h5 className="text-2xl">For CiteScout</h5>
+          {/* <h5 className="text-2xl">For CiteScout</h5> */}
           <br />
           <p className="max-w-[45ch]">
-          A community dedicated to upholding the 
-          highest standards of academic integrity! Get started with a free trial and 
-          discover how Citationscout can help you verify citations with ease, detect 
-          plagiarism and avoid academic misconduct, simplify your research process with 
-          automated checks, and collaborate with peers to promote transparency.
+          CiteScout is a community dedicated to maintaining academic integrity. 
+          It offers a free platform for easy citation verification, plagiarism detection, 
+          and academic misconduct prevention. It simplifies research processes with automated 
+          checks and promotes transparency among peers.
           </p>
         </div>
         <div className="">
@@ -31,16 +31,26 @@ function SignUp() {
                 <h6>
                   Welcome to <span className="font-bold">CITESCOUT</span>
                 </h6>{" "}
-                <span className="max-w-[40ch] text-[13px] text-[#32324D]">
-                  {" "}
-                  Already have an account? <br />
-                  Sign in
+                <span className="max-w-[40ch] text-xs text-[#32324D]">
+                  Already have an account?{" "}
+                  <a className="underline" href="/signin">
+                    Sign In
+                  </a>
                 </span>
               </div>
             </div>
           </div>
-          <h2 className="text-[40px] font-semibold">Sign Up</h2>
+          <h2 className="text-[40px] font-semibold" href>Sign Up</h2>
           <form>
+          <GoogleLogin
+              style={{ width: "100%" }}
+              onSuccess={(credentialResponse) => {
+                console.log(credentialResponse);
+              }}
+              onError={() => {
+                console.log("Login Failed");
+              }}
+            />
             <div className="mt-5">
               <label>Enter your username or email address</label>
               <input
