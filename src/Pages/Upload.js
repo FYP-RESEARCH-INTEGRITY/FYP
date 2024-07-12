@@ -24,12 +24,12 @@ const UploadPage = () => {
         >
           Upload file
         </button>
-        <input
+        {/* <input
           id="fileInput"
           type="file"
           onChange={handleFileChange}
           className="hidden"
-        />
+        /> */}
       </div>
     </div>
   );
