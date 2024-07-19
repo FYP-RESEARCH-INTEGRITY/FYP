@@ -1,7 +1,33 @@
 import { GoogleLogin } from "@react-oauth/google";
-import React from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { auth } from "./firebase";
+import { toast } from "react-toastify";
 
 function SignIn() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate()
+
+  const handleLogin = async (e) => {
+    e.preventDefault()
+
+    try {
+      const userCredentials = await signInWithEmailAndPassword(auth, email, password)
+    
+      if (userCredentials.user) {
+        return navigate("/Upload")
+      }
+    } catch (error) {
+      console.log("You don't have an account, please Signup");
+      toast.error("You don't have an account, please Signup", {
+          position: "top-center",
+      });
+    }
+  }
+
+
   return (
     <div style={{backgroundImage: "url('/phone-bg.png')", backgroundSize: ""}} className="h-fit max-h-[300px] bg-[#32324D] bg-no-repeat bg-center text-white">
       <div className="logo px-8 pt-8">CITESCOUT</div>
@@ -44,7 +70,7 @@ function SignIn() {
             </div>
           </div>
           <h2 className="text-[40px] font-semibold">Sign In</h2>
-          <form>
+          <form onSubmit={handleLogin}>
             <GoogleLogin
               style={{ width: "100%" }}
               onSuccess={(credentialResponse) => {
@@ -58,6 +84,7 @@ function SignIn() {
               <label>Enter your username or email address</label>
               <input
                 type="text"
+                onChange={(e) => setEmail(e.target.value)}
                 className="w-full rounded-xl border border-gray-300 px-4 py-3 focus-within:outline-blue-400 focus-within:ring-blue-400 focus:ring-blue-400"
                 placeholder="Username or email address"
               />
@@ -66,6 +93,7 @@ function SignIn() {
               <label>Enter your Password</label>
               <input
                 type="password"
+                onChange={(e) => setPassword(e.target.value)}
                 className="w-full rounded-xl border border-gray-300 px-4 py-3 focus-within:outline-blue-400 focus-within:ring-blue-400 focus:ring-blue-400"
                 placeholder="Password"
               />
@@ -73,8 +101,10 @@ function SignIn() {
             <p className="forgot text-right text-blue-500 hover:text-blue-700">
               Forgot Password
             </p>
-            <button class="mt-8 w-full rounded-xl bg-[#615793] px-3 py-4 font-bold text-white hover:bg-[#32324D]">
-              Sign In
+            <button
+            type="submit"
+            class="mt-8 w-full rounded-xl bg-[#615793] px-3 py-4 font-bold text-white hover:bg-[#32324D]">
+            Sign In
             </button>
           </form>
         </div>

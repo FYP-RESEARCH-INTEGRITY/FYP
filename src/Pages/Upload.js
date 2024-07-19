@@ -1,11 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { auth, db } from './firebase';
+import { useNavigate } from 'react-router-dom';
+import { getDoc, doc } from "firebase/firestore";
 
 const UploadPage = () => {
   const [file, setFile] = useState(null);
+  const navigate = useNavigate()
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
+
+  const [userDetails, setUserDetails] = useState();
+
+  const fetchUserData = async () => {
+    auth.onAuthStateChanged(async (user) => {
+      console.log(user);
+
+      try {
+        const docRef = doc(db, "Users", user?.uid);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setUserDetails(docSnap.data());
+          console.log(docSnap.data());
+        }
+      } catch (error) {
+        navigate("/")
+        console.log(error);
+      }
+    });
+  };
+  useEffect(() => {
+    fetchUserData();
+  }, []);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
