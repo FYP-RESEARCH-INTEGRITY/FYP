@@ -5,10 +5,13 @@ import { useNavigate } from "react-router-dom";
 import { auth } from "./firebase";
 import { toast } from "react-toastify";
 
+
+
 function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate()
+
 
   const handleLogin = async (e) => {
     e.preventDefault()
@@ -26,7 +29,9 @@ function SignIn() {
       });
     }
   }
-
+  const handleReset = () => {
+    navigate("/forgotpassword");
+  }
 
   return (
     <div style={{backgroundImage: "url('/phone-bg.png')", backgroundSize: ""}} className="h-fit max-h-[300px] bg-[#32324D] bg-no-repeat bg-center text-white">
@@ -98,8 +103,8 @@ function SignIn() {
                 placeholder="Password"
               />
             </div>
-            <p className="forgot text-right text-blue-500 hover:text-blue-700">
-              Forgot Password
+            <p className="forgot text-right text-blue-500 hover:text-blue-700 cursor-pointer" onClick={handleReset}>
+              Forgot Password?
             </p>
             <button
             type="submit"

@@ -1,64 +1,64 @@
 import React, { useState, useEffect } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "./firebase";
+import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithRedirect } from "firebase/auth";
+import { auth, db } from "./firebase"; // Ensure you import db
 import { toast } from "react-toastify";
 import { setDoc, doc } from "firebase/firestore";
 import { GoogleLogin } from "@react-oauth/google";
-import { Navigate, redirect, useNavigate } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 
 function SignUp() {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
 
-  auth.onAuthStateChanged((user) => {
-    if (user) {
-      return navigate("/Upload")
-    }
-  })
-  
-  // const [fname, setFname] = useState("");
-  // const [lname, setLname] = useState("");
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        navigate("/Upload");
+      }
+    });
+    return unsubscribe;
+  }, [navigate]);
+
   const handleSignup = async (e) => {
     e.preventDefault();
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match", {
+        position: "bottom-center",
+      });
+      return;
+    }
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      // console.log("User Registered Successfully!!");
-      // toast.success("User Registered Successfully!!", {
-      //   position: "top-center",
-      // });
       const user = auth.currentUser;
-      console.log(user);
-
       if (user) {
-        // navigate("/Signin")
-        await setDoc(doc("Users", user.uid), {
+        await setDoc(doc(db, "Users", user.uid), {
           email: user.email,
-          password: user.email,
-          // firstName: fname,
-          // lastName: lname,
-          photo:""
+          photo: ""
         });
-
-        // return <Navigate to={"/SignIn"} />
+        navigate("/SignIn");
       }
-
-      // toast.success("User Registered Successfully!!", {
-      //   position: "top-center",
-      // });
-      // navigate("/Signin")
-      console.log("User Registered Successfully!!");
+      toast.success("User Registered Successfully!!", {
+        position: "top-center",
+      });
     } catch (error) {
-      console.log(error.message);
       toast.error(error.message, {
         position: "bottom-center",
       });
     }
   };
 
-
+  const handleGoogleSignIn = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      await signInWithRedirect(auth, provider);
+    } catch (error) {
+      toast.error(error.message, {
+        position: "bottom-center",
+      });
+    }
+  };
 
   return (
     <div className="max-h-[350px] bg-[#32324d] px-8 py-12 text-white">
@@ -66,13 +66,12 @@ function SignUp() {
       <div className="flex">
         <div className="mt-8">
           <h1 className="text-[32px] font-semibold">Sign Up</h1>
-          {/* <h5 className="text-2xl">For CiteScout</h5> */}
           <br />
           <p className="max-w-[45ch]">
-          CiteScout is a community dedicated to maintaining academic integrity. 
-          It offers a free platform for easy citation verification, plagiarism detection, 
-          and academic misconduct prevention. It simplifies research processes with automated 
-          checks and promotes transparency among peers.
+            CiteScout is a community dedicated to maintaining academic integrity.
+            It offers a free platform for easy citation verification, plagiarism detection,
+            and academic misconduct prevention. It simplifies research processes with automated
+            checks and promotes transparency among peers.
           </p>
         </div>
         <div className="">
@@ -98,24 +97,25 @@ function SignUp() {
               </div>
             </div>
           </div>
-          <h2 className="text-[40px] font-semibold" href>Sign Up</h2>
+          <h2 className="text-[40px] font-semibold">Sign Up</h2>
           <form onSubmit={handleSignup}>
-          <GoogleLogin
-              style={{ width: "100%" }}
-              onSuccess={(credentialResponse) => {
-                console.log(credentialResponse);
-              }}
-              onError={() => {
-                console.log("Login Failed");
-              }}
-            />
+            <div className="mt-5">
+              <GoogleLogin
+                onSuccess={handleGoogleSignIn}
+                onError={() => {
+                  toast.error("Google Sign-In Failed!", {
+                    position: "bottom-center",
+                  });
+                }}
+              />
+            </div>
             <div className="mt-5">
               <label>Enter your username or email address</label>
               <input
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 type="text"
-                className="border border-gray-300 px-4 py-3 rounded-xl w-full focus:ring-blue-400  focus-within:ring-blue-400 focus-within:outline-blue-400"
+                className="border border-gray-300 px-4 py-3 rounded-xl w-full focus:ring-blue-400 focus-within:ring-blue-400 focus-within:outline-blue-400"
                 placeholder="Username or email address"
               />
             </div>
@@ -125,7 +125,7 @@ function SignUp() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="border border-gray-300 px-4 py-3 rounded-xl w-full focus:ring-blue-400  focus-within:ring-blue-400 focus-within:outline-blue-400"
+                className="border border-gray-300 px-4 py-3 rounded-xl w-full focus:ring-blue-400 focus-within:ring-blue-400 focus-within:outline-blue-400"
                 placeholder="password"
               />
             </div>
@@ -133,17 +133,17 @@ function SignUp() {
               <label>Confirm Password</label>
               <input
                 type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="border border-gray-300 px-4 py-3 rounded-xl w-full focus:ring-blue-400  focus-within:ring-blue-400 focus-within:outline-blue-400"
-                placeholder="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                className="border border-gray-300 px-4 py-3 rounded-xl w-full focus:ring-blue-400 focus-within:ring-blue-400 focus-within:outline-blue-400"
+                placeholder="confirm password"
               />
             </div>
-            {/* <p className="forgot">Forgot Password</p> */}
             <button
-            type="submit"
-            class="bg-[#615793] hover:bg-[#32324D] text-white font-bold py-4 px-3 rounded-xl w-full mt-8">
-            Sign Up
+              type="submit"
+              className="bg-[#615793] hover:bg-[#32324D] text-white font-bold py-4 px-3 rounded-xl w-full mt-8"
+            >
+              Sign Up
             </button>
           </form>
         </div>

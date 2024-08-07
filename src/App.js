@@ -2,6 +2,7 @@ import "./App.css";
 import Signup from "./Pages/Signup";
 import Signin from "./Pages/Signin";
 import Upload from "./Pages/Upload";
+import ForgotPassword from "./Pages/ForgotPassword";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -33,6 +34,7 @@ function App() {
         {/* <Route  path="/Signup" element={user ? <Navigate to={"/Upload"} /> : <Signup /> } /> */}
         <Route path="/Signin" element={<Signin />} />
         <Route path="/Upload" element={<Upload />} />
+        <Route path="/ForgotPassword" element={<ForgotPassword />} />
       </Route>,
     ),
   );
