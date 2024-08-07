@@ -7,8 +7,13 @@ const UploadPage = () => {
   const [file, setFile] = useState(null);
   const navigate = useNavigate()
 
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
+
+  const requestBody = new FormData();
+  
+  const handleFileUpload = async (e) => {
+    const files = e.target.files[0];
+    console.log(files)
+    requestBody.append("file", files)
   };
 
   const [userDetails, setUserDetails] = useState();
