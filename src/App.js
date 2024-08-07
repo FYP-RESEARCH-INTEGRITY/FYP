@@ -1,29 +1,41 @@
-import './App.css';
-import Signup from './Pages/Signup';
-import Signin from './Pages/Signin';
+import Signup from "./Pages/Signup";
+import Signin from "./Pages/Signin";
+import Upload from "./Pages/Upload";
 import {
   createBrowserRouter,
   createRoutesFromElements,
-
+  Navigate,
   Route,
-  RouterProvider,
+  RouterProvider
 } from "react-router-dom";
-import Layout from './Layout';
+import Layout from "./Layout";
+import {
+  AuthProvider,
+  useAuth
+} from "./Hooks/authContext";
 
 
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path='/' element={<Layout />}>
-      <Route index element={<Signin />} />
-      <Route path="/Signup" element={<Signup />} />
-    </Route>
-  )
-);
+
+
 
 
 function App() {
+  const user = useAuth();
+
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path="/" element={<Layout />}>
+        <Route index element={user ? <Navigate to={"/Upload"} /> : <Signup />} />
+        <Route path="/Signin" element={<Signin />} />
+        <Route path="/Upload" element={<Upload />} />
+      </Route>
+    )
+  );
+
   return (
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   );
 }
 
