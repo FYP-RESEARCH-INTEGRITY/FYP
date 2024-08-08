@@ -1,10 +1,10 @@
+import { useState, useEffect } from 'react';
 import { toast } from 'sonner'
 import {
   createUserWithEmailAndPassword,
   auth,
   provider,
   signInWithPopup,
-  db
 } from "../Services/firebase";
 import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
@@ -20,17 +20,25 @@ function SignUp() {
   const navigate = useNavigate();
 
 
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(user => {
+      if (user) {
+        navigate("/Upload");
+      }
+    });
+    return () => unsubscribe();
+  }, [navigate]);
 
   const handleSignupWithEmailAndPassword = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-     toast.error("Passwords do not match")
+      toast.error("Passwords do not match")
       return;
     }
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      
+
       toast.success("Registration successful");
     } catch (error) {
       toast.error(error.message);
@@ -47,7 +55,7 @@ function SignUp() {
     }
   };
 
- 
+
 
   return (
     <div className="max-h-[350px] bg-[#32324d] px-8 py-12 text-white">
@@ -113,8 +121,8 @@ function SignUp() {
                 className="border border-gray-300 px-4 py-3 rounded-xl w-full focus:ring-blue-400 focus-within:ring-blue-400 focus-within:outline-blue-400"
                 placeholder="password"
                 required
-             
-                />
+
+              />
             </div>
             <div className="mt-5">
               <label>Confirm Password</label>
@@ -122,11 +130,11 @@ function SignUp() {
                 type="password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                
+
                 className="border border-gray-300 px-4 py-3 rounded-xl w-full focus:ring-blue-400 focus-within:ring-blue-400 focus-within:outline-blue-400"
                 placeholder="confirm password"
 
-            />
+              />
             </div>
             <button
               type="submit"

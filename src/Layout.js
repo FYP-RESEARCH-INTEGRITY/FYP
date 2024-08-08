@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import {Outlet, useLocation } from 'react-router-dom';
 import SideMenu from './components/SideMenu';
 import {Toaster} from 'sonner'
 

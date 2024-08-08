@@ -2,16 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import { GoogleOAuthProvider } from '@react-oauth/google';
-import UploadPage from './Pages/Upload';
-import SignUp from './Pages/Signup';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <GoogleOAuthProvider clientId="733229882764-7uhsfoaati4ugkdtjdl3jm2tdp8unh1b.apps.googleusercontent.com"> 
-     <App />
-    </GoogleOAuthProvider>
+    <App />
   </React.StrictMode>
 );
 

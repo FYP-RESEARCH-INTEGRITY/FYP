@@ -1,5 +1,5 @@
 import SideMenu from "../components/SideMenu";
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { useAuth } from '../Hooks/authContext';
@@ -16,7 +16,7 @@ const UploadPage = () => {
       navigate("/");
       return;
     }
-  }, [user])
+  }, [user,navigate])
 
   const handleFileUpload = async (e) => {
     const selectedFile = e.target.files[0];
@@ -47,15 +47,12 @@ const UploadPage = () => {
   };
 
 
-
-
-
   return (
     <>
       <SideMenu />
       <div className="flex min-h-screen flex-col items-center justify-center bg-gray-100 p-4">
         <div className="flex w-full max-w-md flex-col items-center">
-          <img src={process.env.PUBLIC_URL + "/upload-img.png"} alt="image" />
+          <img src={process.env.PUBLIC_URL + "/upload-img.png"} alt="story set" />
           <p className="mb-6 text-center text-sm text-gray-700">
             Join 1000+ users on citeScout. Validate your citations with a single
             upload
