@@ -24,11 +24,10 @@ function SignUp() {
   const handleSignupWithEmailAndPassword = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      toast.error("Passwords do not match", {
-        position: "bottom-center",
-      });
+     toast.error("Passwords do not match")
       return;
     }
+
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       
@@ -48,17 +47,7 @@ function SignUp() {
     }
   };
 
-  const handleGoogleSignIn = async () => {
-    const provider = new GoogleAuthProvider();
-    try {
-      await signInWithRedirect(auth, provider);
-    } catch (error) {
-      toast.error(error.message, {
-        position: "bottom-center",
-      });
-    }
-  };
-
+ 
 
   return (
     <div className="max-h-[350px] bg-[#32324d] px-8 py-12 text-white">
@@ -72,6 +61,7 @@ function SignUp() {
             It offers a free platform for easy citation verification, plagiarism detection,
             and academic misconduct prevention. It simplifies research processes with automated
             checks and promotes transparency among peers.
+          </p>
           <p className="max-w-[45ch] mt-4">
             CiteScout is a community dedicated to maintaining academic integrity. It offers a free platform for easy citation verification, plagiarism detection, and academic misconduct prevention. It simplifies research processes with automated checks and promotes transparency among peers.
           </p>
