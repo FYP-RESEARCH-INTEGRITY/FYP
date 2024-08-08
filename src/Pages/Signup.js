@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from "react";
 import { toast } from 'sonner'
 import {
   createUserWithEmailAndPassword,
@@ -22,11 +21,17 @@ function SignUp() {
 
 
 
-
   const handleSignupWithEmailAndPassword = async (e) => {
     e.preventDefault();
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match", {
+        position: "bottom-center",
+      });
+      return;
+    }
     try {
       await createUserWithEmailAndPassword(auth, email, password);
+      
       toast.success("Registration successful");
     } catch (error) {
       toast.error(error.message);
@@ -37,13 +42,22 @@ function SignUp() {
   const handleGoogleSignIn = async () => {
     try {
       await signInWithPopup(auth, provider);
-     toast.success("Registration successful")
+      toast.success("Registration successful")
     } catch (error) {
       toast.error(`${error.message}`);
     }
   };
 
-
+  const handleGoogleSignIn = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      await signInWithRedirect(auth, provider);
+    } catch (error) {
+      toast.error(error.message, {
+        position: "bottom-center",
+      });
+    }
+  };
 
 
   return (
@@ -52,6 +66,12 @@ function SignUp() {
       <div className="flex">
         <div className="mt-8">
           <h1 className="text-[32px] font-semibold">Sign Up</h1>
+          <br />
+          <p className="max-w-[45ch]">
+            CiteScout is a community dedicated to maintaining academic integrity.
+            It offers a free platform for easy citation verification, plagiarism detection,
+            and academic misconduct prevention. It simplifies research processes with automated
+            checks and promotes transparency among peers.
           <p className="max-w-[45ch] mt-4">
             CiteScout is a community dedicated to maintaining academic integrity. It offers a free platform for easy citation verification, plagiarism detection, and academic misconduct prevention. It simplifies research processes with automated checks and promotes transparency among peers.
           </p>
@@ -70,6 +90,7 @@ function SignUp() {
               Already have an account? <a className="underline" href="/signin">Sign In</a>
             </span>
           </div>
+
           <h2 className="text-[40px] font-semibold mb-8">Sign Up</h2>
           <form onSubmit={handleSignupWithEmailAndPassword}>
             <button
@@ -85,6 +106,7 @@ function SignUp() {
               <input
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+
                 type="email"
                 className="border border-gray-300 px-4 py-3 rounded-xl w-full focus:ring-blue-400"
                 placeholder="Email address"
@@ -97,10 +119,12 @@ function SignUp() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="border border-gray-300 px-4 py-3 rounded-xl w-full focus:ring-blue-400"
-                placeholder="Password"
+
+                className="border border-gray-300 px-4 py-3 rounded-xl w-full focus:ring-blue-400 focus-within:ring-blue-400 focus-within:outline-blue-400"
+                placeholder="password"
                 required
-              />
+             
+                />
             </div>
             <div className="mt-5">
               <label>Confirm Password</label>
@@ -108,10 +132,11 @@ function SignUp() {
                 type="password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="border border-gray-300 px-4 py-3 rounded-xl w-full focus:ring-blue-400"
-                placeholder="Confirm Password"
-                required
-              />
+                
+                className="border border-gray-300 px-4 py-3 rounded-xl w-full focus:ring-blue-400 focus-within:ring-blue-400 focus-within:outline-blue-400"
+                placeholder="confirm password"
+
+            />
             </div>
             <button
               type="submit"

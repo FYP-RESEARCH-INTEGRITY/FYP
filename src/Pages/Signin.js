@@ -6,10 +6,13 @@ import { auth, signInWithPopup,provider } from "../Services/firebase";
 import { toast } from "react-toastify";
 import { FcGoogle } from "react-icons/fc";
 
+
+
 function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate()
+
 
 
   useEffect(() => {
@@ -36,7 +39,9 @@ function SignIn() {
       toast.error("Create an account")
     }
   }
-
+  const handleReset = () => {
+    navigate("/forgotpassword");
+  }
 
   const handleGoogleSignIn = async () => {
     try {
@@ -118,8 +123,8 @@ function SignIn() {
                 placeholder="Password"
               />
             </div>
-            <p className="forgot text-right text-blue-500 hover:text-blue-700">
-              Forgot Password
+            <p className="forgot text-right text-blue-500 hover:text-blue-700 cursor-pointer" onClick={handleReset}>
+              Forgot Password?
             </p>
             <button
               type="submit"

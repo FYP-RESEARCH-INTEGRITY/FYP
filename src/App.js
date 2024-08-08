@@ -1,6 +1,7 @@
 import Signup from "./Pages/Signup";
 import Signin from "./Pages/Signin";
 import Upload from "./Pages/Upload";
+
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -28,8 +29,8 @@ function App() {
         <Route index element={user ? <Navigate to={"/Upload"} /> : <Signup />} />
         <Route path="/Signin" element={<Signin />} />
         <Route path="/Upload" element={<Upload />} />
-      </Route>
-    )
+        <Route path="/ForgotPassword" element={<ForgotPassword />} />
+      </Route>,
   );
 
   return (
