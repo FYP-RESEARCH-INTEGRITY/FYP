@@ -22,15 +22,6 @@ function SignUp() {
 
 
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
-      if (user) {
-        navigate("/Upload");
-      }
-    });
-    return () => unsubscribe();
-  }, [navigate]);
-
 
   const handleSignupWithEmailAndPassword = async (e) => {
     e.preventDefault();

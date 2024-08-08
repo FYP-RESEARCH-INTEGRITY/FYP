@@ -9,7 +9,7 @@ import SignUp from './Pages/Signup';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <GoogleOAuthProvider clientId="733229882764-7uhsfoaati4ugkdtjdl3jm2tdp8unh1b.apps.googleusercontent.com">
+    <GoogleOAuthProvider clientId="733229882764-7uhsfoaati4ugkdtjdl3jm2tdp8unh1b.apps.googleusercontent.com"> 
      <App />
     </GoogleOAuthProvider>
   </React.StrictMode>
