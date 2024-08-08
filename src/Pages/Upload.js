@@ -33,9 +33,10 @@ const UploadPage = () => {
       body: requestBody,
     })
       .then(response => {
-        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-        console.log(response.json())
-        return response.json();
+        // if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        const result = response.json()
+        console.log(result)
+        return result();
       });
 
     toast.promise(uploadPromise, {

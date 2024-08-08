@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { auth, signInWithPopup,provider } from "../Services/firebase";
 import { toast } from "react-toastify";
 import { FcGoogle } from "react-icons/fc";
-
+import {forgotpassword} from "./ForgotPassword"
 
 
 function SignIn() {

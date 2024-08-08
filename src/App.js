@@ -1,6 +1,7 @@
 import Signup from "./Pages/Signup";
 import Signin from "./Pages/Signin";
 import Upload from "./Pages/Upload";
+import ForgotPassword from "./Pages/ForgotPassword";
 
 import {
   createBrowserRouter,
@@ -31,7 +32,7 @@ function App() {
         <Route path="/Upload" element={<Upload />} />
         <Route path="/ForgotPassword" element={<ForgotPassword />} />
       </Route>,
-  );
+  ))
 
   return (
     <AuthProvider>

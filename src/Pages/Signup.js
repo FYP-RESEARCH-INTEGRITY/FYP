@@ -1,3 +1,4 @@
+import { useState,useEffect } from 'react';
 import { toast } from 'sonner'
 import {
   createUserWithEmailAndPassword,
@@ -57,16 +58,6 @@ function SignUp() {
     }
   };
 
-  const handleGoogleSignIn = async () => {
-    const provider = new GoogleAuthProvider();
-    try {
-      await signInWithRedirect(auth, provider);
-    } catch (error) {
-      toast.error(error.message, {
-        position: "bottom-center",
-      });
-    }
-  };
 
 
   return (
@@ -80,7 +71,7 @@ function SignUp() {
             CiteScout is a community dedicated to maintaining academic integrity.
             It offers a free platform for easy citation verification, plagiarism detection,
             and academic misconduct prevention. It simplifies research processes with automated
-            checks and promotes transparency among peers.
+            checks and promotes transparency among peers.</p>
           <p className="max-w-[45ch] mt-4">
             CiteScout is a community dedicated to maintaining academic integrity. It offers a free platform for easy citation verification, plagiarism detection, and academic misconduct prevention. It simplifies research processes with automated checks and promotes transparency among peers.
           </p>
