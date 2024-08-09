@@ -13,7 +13,6 @@ function SignIn() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate()
 
-
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
       if (user) {
@@ -24,8 +23,6 @@ function SignIn() {
   }, [navigate]);
 
   
-
-
   const handleLogin = async (e) => {
     e.preventDefault()
 
@@ -52,7 +49,6 @@ function SignIn() {
   };
 
 
-  }
   const handleReset = () => {
     navigate("/forgotpassword");
   }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import SideMenu from './components/SideMenu';
-import { Toaster } from 'sonner';
+import { Toaster } from 'sonner'
 
 const Layout = () => {
   // useState to toggle side menu
@@ -28,6 +28,12 @@ const Layout = () => {
         &equiv;
       </div>
     
+      {/* display a header on any other page */}
+      { !isOnboardingPage && <SideMenu toggle={toggleSideMenu}/>}
+
+      {/* button */}
+      <div className="font-bold text-3xl p-2 absolute z-50 top-0 left-0  w-screen text-right cursor-pointer" onClick={() => setToggleSideMenu(!toggleSideMenu)}>&equiv;</div>
+
       <main>
         <Outlet />
         <Toaster richColors position='top-center' />
