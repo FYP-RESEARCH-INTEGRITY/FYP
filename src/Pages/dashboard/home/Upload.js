@@ -1,10 +1,10 @@
-import SideMenu from "../components/SideMenu";
+import SideMenu from "../../../components/SideMenu";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { useAuth } from "../Hooks/authContext";
+import { useAuth } from "../../../Hooks/authContext";
 
-const UploadPage = () => {
+export default function Upload() {
   const user = useAuth();
   const navigate = useNavigate();
 
@@ -44,7 +44,7 @@ const UploadPage = () => {
   return (
     <>
       <SideMenu />
-      <div className="flex min-h-screen flex-col items-center justify-center bg-gray-100 p-4">
+      <div className="flex min-h-screen flex-col items-center justify-center p-4">
         <div className="flex w-full max-w-md flex-col items-center">
           <img src={process.env.PUBLIC_URL + "/upload-img.png"} alt="image" />
           <p className="mb-6 text-center text-sm text-gray-700">
@@ -70,5 +70,3 @@ const UploadPage = () => {
     </>
   );
 };
-
-export default UploadPage;

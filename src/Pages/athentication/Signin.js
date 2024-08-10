@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { auth, signInWithPopup,provider } from "../Services/firebase";
+import { auth, signInWithPopup,provider } from "../../Services/firebase";
 import { toast } from "react-toastify";
 import { FcGoogle } from "react-icons/fc";
 

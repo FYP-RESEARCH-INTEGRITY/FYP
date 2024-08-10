@@ -1,26 +1,19 @@
-import Signup from "./Pages/Signup";
-import Signin from "./Pages/Signin";
-import Upload from "./Pages/Upload";
-import ForgotPassword from "./Pages/ForgotPassword";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
 import {
   createBrowserRouter,
   createRoutesFromElements,
   Navigate,
   Route,
-  RouterProvider
+  RouterProvider,
 } from "react-router-dom";
-import Layout from "./Layout";
-import {
-  AuthProvider,
-  useAuth
-} from "./Hooks/authContext";
+import DashboardLayout from "./Pages/dashboard/DashboardLayout";
+import { AuthProvider, useAuth } from "./Hooks/authContext";
 
-
-
-
+import Upload from "./Pages/dashboard/home/Upload";
+import ForgotPassword from "./Pages/athentication/ForgotPassword";
+import SignIn from "./Pages/athentication/Signin";
+import SignUp from "./Pages/athentication/Signup";
+import AuthLayout from "./Pages/athentication/AuthLayout";
+import MyDocuments from "./Pages/dashboard/documents/MyDocument";
 
 
 function App() {
@@ -28,12 +21,17 @@ function App() {
 
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route path="/" element={<Layout />}>
-        <Route index element={user ? <Navigate to={"/Upload"} /> : <Signup />} />
-        <Route path="/Signin" element={<Signin />} />
-        <Route path="/Upload" element={<Upload />} />
-        <Route path="/ForgotPassword" element={<ForgotPassword />} />
-      </Route>,
+      <Route path="/" element={<DashboardLayout />}>
+        <Route index element={user ? <Navigate to="/upload" /> : <SignUp />}  />
+        <Route path="upload" element={<Upload />} />
+        <Route path="documents" element={<MyDocuments />} />
+
+        <Route element={<AuthLayout />}>
+          <Route path="signin" element={<SignIn />} />
+          <Route path="signup" element={<SignUp />} />
+          <Route path="forgot-password" element={<ForgotPassword />} />
+        </Route>
+      </Route>
     ),
   );
 

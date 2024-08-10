@@ -6,7 +6,7 @@ import {
   provider,
   signInWithPopup,
   db,
-} from "../Services/firebase";
+} from "../../Services/firebase";
 import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
 
