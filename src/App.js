@@ -14,6 +14,8 @@ import SignIn from "./Pages/athentication/Signin";
 import SignUp from "./Pages/athentication/Signup";
 import AuthLayout from "./Pages/athentication/AuthLayout";
 import MyDocuments from "./Pages/dashboard/documents/MyDocument";
+import Logout from "./Pages/dashboard/Logout/Logout";
+import History from "./Pages/dashboard/history/history";
 
 
 function App() {
@@ -29,7 +31,9 @@ function App() {
         <Route element={<AuthLayout />}>
           <Route path="signin" element={<SignIn />} />
           <Route path="signup" element={<SignUp />} />
-          <Route path="forgot-password" element={<ForgotPassword />} />
+          <Route path="forgotpassword" element={<ForgotPassword />} />
+          <Route path="logout" element={<Logout/>}/>
+          <Route path="history" element={<History/>}/>
         </Route>
       </Route>
     ),

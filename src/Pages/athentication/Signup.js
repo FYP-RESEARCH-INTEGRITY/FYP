@@ -1,17 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
-import {
-  createUserWithEmailAndPassword,
-  auth,
-  provider,
-  signInWithPopup,
-  db,
-} from "../../Services/firebase";
+import { createUserWithEmailAndPassword, auth, provider, signInWithPopup } from "../../Services/firebase";
 import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
-
-// import { setDoc, doc } from "firebase/firestore";
-// import { GoogleLogin } from "@react-oauth/google";
 
 function SignUp() {
   const [email, setEmail] = useState("");
@@ -38,29 +29,11 @@ function SignUp() {
     }
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-
       toast.success("Registration successful");
     } catch (error) {
       toast.error(error.message);
     }
   };
-
-  // const handleSignup = async (e) => {
-  //   e.preventDefault();
-  //   if (password !== confirmPassword) {
-  //     toast.error("Passwords do not match", {
-  //       position: "bottom-center",
-  //     });
-  //     return;
-  //   }
-  //   try {
-  //     await createUserWithEmailAndPassword(auth, email, password);
-
-  //     toast.success("Registration successful");
-  //   } catch (error) {
-  //     toast.error(error.message);
-  //   }
-  // };
 
   const handleGoogleSignIn = async () => {
     try {
@@ -71,75 +44,44 @@ function SignUp() {
     }
   };
 
-  // const handleGoogleSignIn = async () => {
-  //   const provider = new GoogleAuthProvider();
-  //   try {
-  //     await signInWithRedirect(auth, provider);
-  //   } catch (error) {
-  //     toast.error(error.message, {
-  //       position: "bottom-center",
-  //     });
-  //   }
-  // };
-
   return (
-    <div className="max-h-[350px] bg-[#32324d] px-8 py-12 text-white">
-      <div className="logo">CITESCOUT</div>
-      <div className="flex">
-        <div className="mt-8">
-          <h1 className="text-[32px] font-semibold">Sign Up</h1>
-          <p className="mt-4 max-w-[45ch]">
-            CiteScout is a community dedicated to maintaining academic
-            integrity. It offers a free platform for easy citation verification,
-            plagiarism detection, and academic misconduct prevention. It
-            simplifies research processes with automated checks and promotes
-            transparency among peers.
-          </p>
+    <div
+      style={{ backgroundImage: "url('/phone-bg.png')" }}
+      className="h-fit max-h-[300px] bg-[#32324D] bg-no-repeat bg-center text-white"
+    >
+      <div className="logo px-8 pt-8">CITESCOUT</div>
+      <div className="flex flex-col justify-center md:flex-row md:justify-between">
+        <div className="px-8 pb-12 pt-2">
+          <h1 className="text-[32px] font-semibold">Join us today</h1>
           <br />
-          <p className="max-w-[45ch]">
-            CiteScout is a community dedicated to maintaining academic
-            integrity. It offers a free platform for easy citation verification,
-            plagiarism detection, and academic misconduct prevention. It
-            simplifies research processes with automated checks and promotes
-            transparency among peers.
-          </p>
-          <p className="mt-4 max-w-[45ch]">
-            CiteScout is a community dedicated to maintaining academic
-            integrity. It offers a free platform for easy citation verification,
-            plagiarism detection, and academic misconduct prevention. It
-            simplifies research processes with automated checks and promotes
-            transparency among peers.
+          <p className="hidden md:block max-w-[45ch]">
+            Become a part of CiteScout, the community dedicated to maintaining academic integrity with free citation verification, plagiarism detection, and collaboration tools.
           </p>
         </div>
-        <div>
-          <img
-            className="img"
-            src="https://res.cloudinary.com/dsoqjlpxd/image/upload/v1712764240/Saly-1_xyu5bh.png"
-            alt="Sign Up Illustration"
-          />
-        </div>
-        <div className="ml-8 rounded-[40px] bg-white p-10 text-black shadow-xl">
-          <div className="mb-4 flex items-center justify-between">
-            <h6>
-              Welcome to <span className="font-bold">CITESCOUT</span>
-            </h6>
-            <span className="text-xs text-[#32324D]">
-              Already have an account?{" "}
-              <a className="underline" href="/signin">
-                Sign In
-              </a>
-            </span>
-          </div>
 
-          <h2 className="mb-8 text-[40px] font-semibold">Sign Up</h2>
+        {/* Sign Up Card */}
+        <div className="mx-auto absolute inset-[30%_0_10%_0] lg:inset-[10%_0_0%_0] h-fit w-full rounded-[40px] bg-white px-6 py-8 text-black shadow-xl sm:max-w-[430px] md:mr-8 md:px-8 md:py-10">
+          <div className="row">
+            <div className="col-md-10">
+              <div className="flex justify-between">
+                <span className="max-w-[40ch] text-xs text-[#32324D]">
+                  Already have an account?{" "}
+                  <a className="underline" href="/signin">
+                    Sign In
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+          <h2 className="text-[40px] font-semibold">Sign Up</h2>
           <form onSubmit={handleSignupWithEmailAndPassword}>
             <button
               type="button"
               onClick={handleGoogleSignIn}
-              className="mt-5 flex w-[50%] items-center rounded-xl border border-gray-300 px-4 py-3 text-black hover:bg-gray-100 focus:outline-none focus:ring-blue-400"
+              className="flex items-center border border-gray-300 px-4 py-3 rounded-xl w-[100%] mt-5 text-black hover:bg-gray-100 focus:ring-blue-400 focus:outline-none"
             >
               <FcGoogle className="mr-2 text-xl" />
-              Sign in with Google
+              Sign up with Google
             </button>
             <div className="mt-5">
               <label>Enter your email address</label>
@@ -147,7 +89,7 @@ function SignUp() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 type="email"
-                className="w-full rounded-xl border border-gray-300 px-4 py-3 focus:ring-blue-400"
+                className="w-full rounded-xl border border-gray-300 px-4 py-3 focus-within:outline-blue-400 focus-within:ring-blue-400 focus:ring-blue-400"
                 placeholder="Email address"
                 required
               />
@@ -159,7 +101,7 @@ function SignUp() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full rounded-xl border border-gray-300 px-4 py-3 focus-within:outline-blue-400 focus-within:ring-blue-400 focus:ring-blue-400"
-                placeholder="password"
+                placeholder="Password"
                 required
               />
             </div>
@@ -170,7 +112,7 @@ function SignUp() {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 className="w-full rounded-xl border border-gray-300 px-4 py-3 focus-within:outline-blue-400 focus-within:ring-blue-400 focus:ring-blue-400"
-                placeholder="confirm password"
+                placeholder="Confirm password"
               />
             </div>
             <button
