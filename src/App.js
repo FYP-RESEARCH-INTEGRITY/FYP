@@ -16,6 +16,7 @@ import AuthLayout from "./Pages/athentication/AuthLayout";
 import MyDocuments from "./Pages/dashboard/documents/MyDocument";
 import Logout from "./Pages/dashboard/Logout/Logout";
 import History from "./Pages/dashboard/history/history";
+import Document from "./Pages/dashboard/documents/workspace/Document";
 
 
 function App() {
@@ -34,7 +35,9 @@ function App() {
           <Route path="forgotpassword" element={<ForgotPassword />} />
           <Route path="logout" element={<Logout/>}/>
           <Route path="history" element={<History/>}/>
+          <Route path="document" element={<Document/>}/>
         </Route>
+
       </Route>
     ),
   );
