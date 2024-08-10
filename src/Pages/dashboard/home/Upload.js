@@ -1,22 +1,19 @@
-import SideMenu from "../components/SideMenu";
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'sonner';
-import { useAuth } from '../Hooks/authContext';
+import SideMenu from "../../../components/SideMenu";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import { useAuth } from "../../../Hooks/authContext";
 
-
-const UploadPage = () => {
-
+export default function Upload() {
   const user = useAuth();
   const navigate = useNavigate();
-
 
   useEffect(() => {
     if (!user) {
       navigate("/");
       return;
     }
-  }, [user])
+  }, [user]);
 
   const handleFileUpload = async (e) => {
     const selectedFile = e.target.files[0];
@@ -31,29 +28,23 @@ const UploadPage = () => {
     const uploadPromise = fetch(backendUrl, {
       method: "POST",
       body: requestBody,
-    })
-      .then(response => {
-        // if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-        const result = response.json()
-        console.log(result)
-        return result();
-      });
+    }).then((response) => {
+      const result = response.json()
+      console.log(result)
+      return result;
+    });
 
     toast.promise(uploadPromise, {
       loading: "Submitting...",
       success: (data) => `${data.filename} submitted`,
-      error: (error) => `Error: ${error.message || error}`
+      error: (error) => `Error: ${error.message || error}`,
     });
   };
-
-
-
-
 
   return (
     <>
       <SideMenu />
-      <div className="flex min-h-screen flex-col items-center justify-center bg-gray-100 p-4">
+      <div className="flex min-h-screen flex-col items-center justify-center p-4">
         <div className="flex w-full max-w-md flex-col items-center">
           <img src={process.env.PUBLIC_URL + "/upload-img.png"} alt="image" />
           <p className="mb-6 text-center text-sm text-gray-700">
@@ -68,16 +59,14 @@ const UploadPage = () => {
             Upload file
           </button>
           <input
-          id="fileInput"
-          type="file"
-          onChange={handleFileUpload}
-          className="hidden"
-          accept='.pdf'
-        />
+            id="fileInput"
+            type="file"
+            onChange={handleFileUpload}
+            className="hidden"
+            accept=".pdf"
+          />
         </div>
       </div>
     </>
   );
 };
-
-export default UploadPage;

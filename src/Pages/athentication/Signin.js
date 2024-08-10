@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { auth, signInWithPopup,provider } from "../Services/firebase";
+import { auth, signInWithPopup,provider } from "../../Services/firebase";
 import { toast } from "react-toastify";
 import { FcGoogle } from "react-icons/fc";
 import {forgotpassword} from "./ForgotPassword"
@@ -12,8 +12,6 @@ function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate()
-
-
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
@@ -39,9 +37,7 @@ function SignIn() {
       toast.error("Create an account")
     }
   }
-  const handleReset = () => {
-    navigate("/forgotpassword");
-  }
+
 
   const handleGoogleSignIn = async () => {
     try {
@@ -53,6 +49,9 @@ function SignIn() {
   };
 
 
+  const handleReset = () => {
+    navigate("/forgotpassword");
+  }
 
   return (
     <div style={{ backgroundImage: "url('/phone-bg.png')", backgroundSize: "" }} className="h-fit max-h-[300px] bg-[#32324D] bg-no-repeat bg-center text-white">
