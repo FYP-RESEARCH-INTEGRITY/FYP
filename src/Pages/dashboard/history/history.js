@@ -29,7 +29,7 @@ const History = () => {
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">All Documents</h1>
+        <h1 className="text-2xl font-bold">History</h1>
         <div className="flex items-center">
           <div className="relative mr-4">
             <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />

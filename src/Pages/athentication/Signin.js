@@ -23,20 +23,21 @@ function SignIn() {
   }, [navigate]);
 
   
-  const handleLogin = async (e) => {
-    e.preventDefault()
-
+  const handleSignin = async (e) => {
+    e.preventDefault();
     try {
-      const userCredentials = await signInWithEmailAndPassword(auth, email, password)
-
+      const userCredentials = await signInWithEmailAndPassword(auth, email, password);
+      console.log(userCredentials);
+      
       if (userCredentials.user) {
-        toast.success("Sigin successful")
+        toast.success("Signin successful");
+        navigate("/Upload");
       }
     } catch (error) {
-      console.log("You don't have an account, please Signup");
-      toast.error("Create an account")
+      console.log(error);
+      toast.error("Invalid email or password");
     }
-  }
+  };
 
 
   const handleGoogleSignIn = async () => {
@@ -95,7 +96,7 @@ function SignIn() {
             </div>
           </div>
           <h2 className="text-[40px] font-semibold">Sign In</h2>
-          <form onSubmit={handleLogin}>
+          <form onSubmit={handleSignin}>
             <button
               type="button"
               onClick={handleGoogleSignIn}

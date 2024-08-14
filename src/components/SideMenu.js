@@ -82,6 +82,15 @@ export default function SideMenu() {
     },
   ];
 
+  navigation.map((nav, index) => {
+    if(window.location.pathname.includes(nav.href.toLocaleLowerCase())) {
+      nav.current = true
+    } else {
+      nav.current = false
+    }
+  }) 
+
+
   return (
     <div className="fixed left-0 top-0 h-screen w-64 overflow-hidden bg-[#F9F6F9] transition-all duration-300">
       <div className="flex h-full flex-col p-5">

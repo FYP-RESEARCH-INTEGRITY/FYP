@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Document  () {
+export default function Workspace() {
   return (
     <div className="flex h-screen bg-gray-50">
       {/* Side Menu */}
