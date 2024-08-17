@@ -23,7 +23,7 @@ function SignUp() {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
       if (user) {
-        navigate("/Upload");
+        navigate("/upload");
       }
     });
     return () => unsubscribe();

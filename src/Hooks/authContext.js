@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { auth } from "../Services/firebase";
+import { auth } from "../Services/firebase"; // Ensure Firebase is properly initialized
 
 const AuthContext = createContext(null);
 
@@ -8,6 +8,7 @@ export function AuthProvider({ children }) {
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(setUser);
+        // Cleanup subscription on component unmount
         return () => unsubscribe();
     }, []);
 
